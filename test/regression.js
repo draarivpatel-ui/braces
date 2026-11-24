@@ -218,6 +218,13 @@ describe('bash tests', () => {
       equal('{0..10,braces}', ['0..10', 'braces']);
     });
 
+    it('should not throw on input with a detached paren node (see braces/issues#60)', () => {
+      equal('{{*(()', ['{{*(()']);
+      equal('a{{*(()b', ['a{{*(()b']);
+      equal('{{*((}}', ['{{*((}}']);
+      equal('{{*((', ['{{*((']);
+    });
+
     it('should not expand quoted strings.', () => {
       equal('{"x,x"}', ['{x,x}']);
       equal('{"klklkl"}{1,2,3}', ['{klklkl}1', '{klklkl}2', '{klklkl}3']);
